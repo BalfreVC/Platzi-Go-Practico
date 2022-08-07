@@ -11,29 +11,42 @@ import (
 type calc struct{}
 
 func (calc) operate(entrada string, operador string) int {
+	entradaLimpia := strings.Split(entrada, operador)
+	a := pasaAEntero(entradaLimpia[0])
+	b := pasaAEntero(entradaLimpia[1])
+	switch operador {
+	case "+":
+		fmt.Println("Suma")
+		return a + b
+	case "-":
+		fmt.Println("Resta")
+		return a - b
+	case "*":
+		fmt.Println("Multiplica")
+		return a * b
+	case "/":
+		fmt.Println("Divide")
+		return a / b
+	default:
+		fmt.Println("Operacion no permitida")
+		return 0
+	}
+}
 
+func leerTeclado() string {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	return scanner.Text()
+}
+
+func pasaAEntero(texto string) int {
+	operador, _ := strconv.Atoi(texto)
+	return operador
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	operacion := scanner.Text()
-	fmt.Println(operacion)
-
-	// Separar la operacion en valores
-	valores := strings.Split(operacion, "+")
-	fmt.Println(valores)
-	// Realizar la operacion _ sin conversion queda como texto
-	fmt.Println(valores[0] + valores[1])
-	// Realizar la operacion _ CON conversion YA son datos numericos
-	operador1, err := strconv.Atoi(valores[0])
-	if err != nil {
-		fmt.Println("Error de conversion para ", valores[0])
-	}
-	operador2, err := strconv.Atoi(valores[1])
-	if err != nil {
-		fmt.Println("Error de conversion para ", valores[1])
-	}
-
-	fmt.Println("Resultado: ", operador1+operador2)
+	operacion := leerTeclado()
+	operador := leerTeclado()
+	c := calc{}
+	fmt.Println("Resultado: ", c.operate(operacion, operador))
 }
