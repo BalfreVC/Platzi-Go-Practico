@@ -13,7 +13,7 @@ func (l *taskList) agregarTarea(t task) {
 func (l *taskList) eliminarTarea(indice int) {
 	l.tasks = append(l.tasks[:indice], l.tasks[indice+1:]...)
 }
-func (l taskList) muestraTareas() {
+func (l taskList) muestraTareas(tipo int) { // 0 = Todas, 1 = Completas, 2 = Pendintes
 	// for i := 0; i < len(l.tasks); i++ {
 	// 	fmt.Printf("%v", l.tasks[i].descripcion)
 	// 	if l.tasks[i].completado {
@@ -23,23 +23,29 @@ func (l taskList) muestraTareas() {
 	// 	}
 	// }
 
-	for indice, tarea := range l.tasks {
-		fmt.Printf("%d .- %v", indice, tarea.descripcion)
-		if tarea.completado {
-			fmt.Println(" FINALIZADA")
-		} else {
-			fmt.Println(" PENDIENTE")
-		}
-	}
-
-	// for _, tarea := range l.tasks {
-	// 	fmt.Printf("%v", tarea.descripcion)
+	// for indice, tarea := range l.tasks {
+	// 	fmt.Printf("%d .- %v", indice, tarea.descripcion)
 	// 	if tarea.completado {
 	// 		fmt.Println(" FINALIZADA")
 	// 	} else {
 	// 		fmt.Println(" PENDIENTE")
 	// 	}
 	// }
+
+	for _, tarea := range l.tasks {
+		if tipo == 1 && tarea.completado == false {
+			continue
+		}
+		if tipo == 2 && tarea.completado == true {
+			continue
+		}
+		fmt.Printf("%v", tarea.descripcion)
+		if tarea.completado {
+			fmt.Println(" FINALIZADA")
+		} else {
+			fmt.Println(" PENDIENTE")
+		}
+	}
 }
 
 type task struct {
@@ -61,7 +67,7 @@ func (t *task) actNombre(nombre string) {
 func main() {
 	t1 := task{"t1", "Primera", false}
 	fmt.Printf("%v\n", t1)
-	t2 := task{"t2", "Segunda", false}
+	t2 := task{"t2", "Segunda", true}
 	fmt.Printf("%v\n", t2)
 	t3 := task{"t3", "Tercera", false}
 	fmt.Printf("%v\n", t3)
@@ -74,7 +80,7 @@ func main() {
 	fmt.Println(lista)
 	fmt.Println(len(lista.tasks))
 	lista.agregarTarea(t3)
-	lista.muestraTareas()
+	lista.muestraTareas(0)
 	// fmt.Println(len(lista.tasks))
 	// fmt.Println(lista)
 	// lista.eliminarTarea(1)
