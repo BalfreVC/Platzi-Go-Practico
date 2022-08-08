@@ -16,14 +16,15 @@ func main() {
 			// Finish the loop, even if there are pending iterations
 			break
 		}
-		fmt.Println(i)
+		fmt.Print(i, ",")
 	}
+	fmt.Println("")
 	for i := 0; i < 10; i++ {
 		if i == 4 {
 			// Only skips this execution but continues with loop
 			continue
 		}
-		fmt.Println(i)
+		fmt.Print(i, ",")
 	}
 
 }

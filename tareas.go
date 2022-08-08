@@ -71,6 +71,7 @@ func main() {
 	fmt.Printf("%v\n", t2)
 	t3 := task{"t3", "Tercera", false}
 	fmt.Printf("%v\n", t3)
+	t4 := task{"t4", "Cuarta", false}
 
 	lista := taskList{
 		[]task{
@@ -86,5 +87,22 @@ func main() {
 	// lista.eliminarTarea(1)
 	// fmt.Println(len(lista.tasks))
 	// fmt.Println(lista)
+
+	// Crear una lista de tareas por PERSONA
+	tareasPorPersona := make(map[string]taskList)
+	tareasPorPersona["balfre"] = lista
+
+	lista2 := taskList{
+		[]task{
+			t3, t4,
+		},
+	}
+
+	tareasPorPersona["ivana"] = lista2
+	fmt.Println(tareasPorPersona)
+	fmt.Println("Tareas de Balfre")
+	tareasPorPersona["balfre"].muestraTareas(0)
+	fmt.Println("Tareas de Ivana")
+	tareasPorPersona["ivana"].muestraTareas(0)
 
 }
